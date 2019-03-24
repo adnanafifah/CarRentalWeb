@@ -1,0 +1,68 @@
+<mz-navbar [navbarClass]="' blue-grey darken-4'" *ngIf="loggedIn">
+	<a href="#" class="brand-logo">Logo</a>
+	<mz-navbar-item-container [align]="'left'">
+		<mz-navbar-item>
+			<button mz-button id="btn-sidenav-demo" class="hide-on-large-only" [flat]="true">
+				<i mz-icon-mdi [icon]="'menu'" class="white-text">
+				</i>
+			</button>
+		</mz-navbar-item>
+	</mz-navbar-item-container>
+</mz-navbar>
+
+<mz-sidenav [id]="'sidenav-demo'" [collapseButtonId]="'btn-sidenav-demo'" [fixed]="true" [backgroundClass]="'blue-grey darken-3 white-text'"
+ *ngIf="loggedIn" #sidenav>
+	<mz-sidenav-header>
+		<div class="uitm-logo">
+			<img src="assets/imgs/uitm-logo.png">
+		</div>
+	</mz-sidenav-header>
+
+	<mz-sidenav-link>
+		<a [routerLink]="'/'" class="waves-effect waves-light white-text">
+			<i mz-icon-mdi [icon]="'view-dashboard'" class="white-text"></i> Dashboard
+		</a>
+	</mz-sidenav-link>
+
+	<mz-sidenav-link>
+		<a [routerLink]="'/users'" class="waves-effect waves-light white-text">
+			<i mz-icon-mdi [icon]="'account-group'" class="white-text"></i> Users
+		</a>
+	</mz-sidenav-link>
+
+	<mz-sidenav-link>
+		<a [routerLink]="'/bookings'" class="waves-effect waves-light white-text">
+			<i mz-icon-mdi [icon]="'book-open-page-variant'" class="white-text"></i> Bookings
+		</a>
+	</mz-sidenav-link>
+
+	<mz-sidenav-link>
+		<a [routerLink]="'/payments'" class="effect waves-light white-text">
+			<i mz-icon-mdi [icon]="'cash'" class="white-text"></i> Payments
+		</a>
+	</mz-sidenav-link>
+
+	<mz-sidenav-link>
+		<a [routerLink]="'/vehicles'" class="waves-effect waves-light white-text">
+			<i mz-icon-mdi [icon]="'car-hatchback'" class="white-text"></i> Vehicles
+		</a>
+	</mz-sidenav-link>
+
+	<mz-sidenav-link>
+		<a (click)="goToProfile()" class="waves-effect waves-light white-text">
+			<i mz-icon-mdi [icon]="'account-box'" class="white-text"></i> Account
+		</a>
+	</mz-sidenav-link>
+
+	<mz-sidenav-link>
+		<a class="waves-effect waves-light white-text" (click)="signOut()">
+			<i mz-icon-mdi [icon]="'logout'" class="white-text"></i> Logout
+		</a>
+	</mz-sidenav-link>
+</mz-sidenav>
+
+<main class="grey lighten-4" [ngClass]="{maincontent: loggedIn}">
+	<router-outlet #route="outlet"></router-outlet>
+</main>
+
+<app-loader></app-loader>

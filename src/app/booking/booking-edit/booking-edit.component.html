@@ -1,0 +1,171 @@
+<div class="content-container">
+	<form [formGroup]="bookingForm">
+		<mz-collapsible [mode]="'expandable'" [popout]="true">
+			<mz-collapsible-item [active]="true">
+				<mz-collapsible-item-header>
+					<i mz-icon-mdi [icon]="'book-open-page-variant'">
+					</i>
+					Booking Information
+				</mz-collapsible-item-header>
+				<mz-collapsible-item-body>
+					<div class="row">
+						<div class="col m6 s12">
+							<mz-input-container>
+								<input mz-input [label]="'Booking No'" id="bookingno" type="text" formControlName="bookingno">
+							</mz-input-container>
+						</div>
+						<div class="col m6 s12">
+							<mz-input-container>
+								<input mz-input [label]="'Destination'" id="destination" type="text" formControlName="destination">
+							</mz-input-container>
+						</div>
+						<div class="col m6 s12">
+							<mz-input-container>
+								<input mz-input [label]="'Departure Date'" id="depart_date" type="text" formControlName="depart_date">
+							</mz-input-container>
+						</div>
+						<div class="col m6 s12">
+							<mz-input-container>
+								<input mz-input [label]="'Return Date'" id="return_date" type="text" formControlName="return_date">
+							</mz-input-container>
+						</div>
+						<div class="col m6 s12">
+							<mz-input-container>
+								<input mz-input [label]="'Total Price (RM)'" id="estimate_price" type="text" formControlName="estimate_price">
+							</mz-input-container>
+						</div>
+						<div class="col m6 s12">
+							<div class="custom-container">
+								<p>
+									<button mz-button [ngClass]="{'green': bookingStatus === 'Open', 'red': bookingStatus === 'Rejected', 'amber': bookingStatus === 'Pending Payment'}">
+										{{bookingStatus}}
+									</button>
+								</p>
+								<label>Booking Status</label>
+							</div>
+						</div>
+						<div class="col s12">
+							<mz-textarea-container>
+								<textarea mz-textarea [label]="'Purpose'" id="purpose" formControlName="purpose"></textarea>
+							</mz-textarea-container>
+						</div>
+					</div>
+				</mz-collapsible-item-body>
+			</mz-collapsible-item>
+			<mz-collapsible-item [active]="true">
+				<mz-collapsible-item-header>
+					<i mz-icon-mdi [icon]="'car'">
+					</i>
+					Vehicle Information
+				</mz-collapsible-item-header>
+				<mz-collapsible-item-body>
+					<div class="row" formGroupName="vehicle_info">
+						<div class="col s12 center-align">
+							<img [src]="vehImage" width="50%">
+						</div>
+						<div class="col m6 s12">
+							<mz-input-container>
+								<input mz-input [label]="'Model'" id="model" type="text" formControlName="model">
+							</mz-input-container>
+						</div>
+						<div class="col m6 s12">
+							<mz-input-container>
+								<input mz-input [label]="'Registration No'" id="regno" type="text" formControlName="regno">
+							</mz-input-container>
+						</div>
+						<div class="col m6 s12">
+							<mz-input-container>
+								<input mz-input [label]="'Price Per Day (RM)'" id="price" type="text" formControlName="price">
+							</mz-input-container>
+						</div>
+						<div class="col m6 s12">
+							<mz-input-container>
+								<input mz-input [label]="'Category'" id="category" type="text" formControlName="category">
+							</mz-input-container>
+						</div>
+					</div>
+				</mz-collapsible-item-body>
+			</mz-collapsible-item>
+			<mz-collapsible-item [active]="true">
+				<mz-collapsible-item-header>
+					<i mz-icon-mdi [icon]="'account-card-details'">
+					</i>
+					Applicant Information
+				</mz-collapsible-item-header>
+				<mz-collapsible-item-body>
+					<div class="row" formGroupName="applicant_info">
+						<div class="col s12 center-align">
+							<img [src]="userImage" width="50%">
+						</div>
+						<div class="col m6 s12">
+							<mz-input-container>
+								<input mz-input [label]="'Applicant Name'" id="username" type="text" formControlName="username">
+							</mz-input-container>
+						</div>
+						<div class="col m6 s12">
+							<mz-input-container>
+								<input mz-input [label]="'Identification No'" id="icno" type="text" formControlName="icno">
+							</mz-input-container>
+						</div>
+						<div class="col m6 s12">
+							<mz-input-container>
+								<input mz-input [label]="'Email'" id="email" type="text" formControlName="email">
+							</mz-input-container>
+						</div>
+						<div class="col m6 s12">
+							<mz-input-container>
+								<input mz-input [label]="'Contact No'" id="phoneno" type="text" formControlName="phoneno">
+							</mz-input-container>
+						</div>
+					</div>
+				</mz-collapsible-item-body>
+			</mz-collapsible-item>
+		</mz-collapsible>
+	</form>
+
+	<div class="flex-between padding-1rem">
+		<button mz-button class="blue-grey" [routerLink]="'/bookings'">
+			<i mz-icon-mdi [icon]="'arrow-left-bold'" [align]="'left'">
+			</i>
+			Back
+		</button>
+		<div class="flex-between">
+			<button mz-button class="red" (click)="rejectModal.open()" *ngIf="bookingStatus === 'Open'">
+				<i mz-icon-mdi [icon]="'close-circle-outline'" [align]="'left'">
+				</i>
+				Reject
+			</button>
+			<button mz-button class="cyan" (click)="confirmModal.open()" *ngIf="bookingStatus === 'Open'">
+				<i mz-icon-mdi [icon]="'checkbox-marked-circle-outline'" [align]="'left'">
+				</i>
+				Confirm
+			</button>
+		</div>
+	</div>
+</div>
+
+<mz-modal #rejectModal>
+	<mz-modal-header>
+		<h4>Confirmation</h4>
+	</mz-modal-header>
+	<mz-modal-content>
+		Are you sure you want to reject this booking?
+	</mz-modal-content>
+	<mz-modal-footer>
+		<button mz-button [flat]="true" mz-modal-close>Cancel</button>
+		<button mz-button [flat]="true" mz-modal-close (click)="rejectBooking()">Confirm</button>
+	</mz-modal-footer>
+</mz-modal>
+
+<mz-modal #confirmModal>
+	<mz-modal-header>
+		<h4>Confirmation</h4>
+	</mz-modal-header>
+	<mz-modal-content>
+		{{confirmMsgType}}
+	</mz-modal-content>
+	<mz-modal-footer>
+		<button mz-button [flat]="true" mz-modal-close>Cancel</button>
+		<button mz-button [flat]="true" mz-modal-close (click)="confirmBooking()">Confirm</button>
+	</mz-modal-footer>
+</mz-modal>

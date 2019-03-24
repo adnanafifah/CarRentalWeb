@@ -1,0 +1,121 @@
+<div class="content-container">
+	<!-- Search Card -->
+	<mz-card class="wow fadeInDown">
+		<mz-card-content>
+			<div class="row" style="margin: 0;">
+				<form [formGroup]="searchForm">
+					<div class="col m8 s12">
+						<mz-input-container>
+							<input mz-input [label]="'Search'" placeholder="Booking info to filter" formControlName="searchField">
+						</mz-input-container>
+					</div>
+					<div class="col m4 s12">
+						<mz-select-container>
+							<select multiple mz-select [label]="'Booking Status'" [placeholder]="'Select Booking Status'" formControlName="status">
+								<option *ngFor="let option of bookingStatus" [ngValue]="option">{{ option }}</option>
+							</select>
+						</mz-select-container>
+					</div>
+				</form>
+			</div>
+		</mz-card-content>
+	</mz-card>
+
+	<div class="section-seperator"></div>
+
+	<mz-card class="wow fadeIn">
+		<mz-card-title>
+			<div class="card-header-title">
+				<div> &nbsp;</div>
+				<div>Bookings</div>
+				<div>
+					<button mz-button class="btn-outline-white hoverable" [float]="true" [routerLink]="'/bookings/add'">
+						<i mz-icon-mdi [icon]="'plus'"></i>
+					</button>
+				</div>
+			</div>
+		</mz-card-title>
+		<mz-card-content>
+			<ngx-datatable #myTable class='material expandable' [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
+			 [limit]="10" [rows]='rows' style="box-shadow:0 0 0 0;" [selectionType]="'single'" (select)="navigateToDetail($event)">
+
+				<!-- Row Detail Template -->
+				<!-- <ngx-datatable-row-detail [rowHeight]="100" #myDetailRow>
+					<ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+						<div style="padding-left:60px; font-size:14px">
+							<div>Date :{{row.model}}</div>
+							<div>Model No : {{row.regno}}</div>
+							<div>Registration No : {{row.chassisno}}</div>
+							<div>
+								<button mz-button [ngClass]="{'red': row.status == 'Inactive', 'green': row.status == 'Active'}">
+									{{row.status}}
+								</button>
+							</div>
+						</div>
+					</ng-template>
+				</ngx-datatable-row-detail> -->
+
+				<!-- Column Templates -->
+				<ngx-datatable-column [width]="50" [resizeable]="false" [sortable]="false" [draggable]="false" [canAutoResize]="false">
+					<ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+						<a [class.datatable-icon-right]="!expanded" [class.datatable-icon-down]="expanded" title="Expand/Collapse Row" class="desktop-hidden">
+						</a>
+					</ng-template>
+				</ngx-datatable-column>
+
+				<ngx-datatable-column name="Booking No" prop="bookingno" [flexGrow]="1">
+					<ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+						<span class="mobile-hidden">{{column.name}}</span>
+					</ng-template>
+
+					<ng-template let-value="value" ngx-datatable-cell-template>
+						<span class="mobile-hidden">{{value}}</span>
+					</ng-template>
+				</ngx-datatable-column>
+
+				<ngx-datatable-column name="Departure Date" prop="depart_date" [flexGrow]="1">
+					<ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+						<span class="mobile-hidden">{{column.name}}</span>
+					</ng-template>
+
+					<ng-template let-value="value" ngx-datatable-cell-template>
+						<span class="mobile-hidden">{{value.toDate() | date:'dd/MM/yyyy'}}</span>
+					</ng-template>
+				</ngx-datatable-column>
+
+				<ngx-datatable-column name="Return Date" prop="return_date" [flexGrow]="1">
+					<ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+						<span class="mobile-hidden">{{column.name}}</span>
+					</ng-template>
+
+					<ng-template let-value="value" ngx-datatable-cell-template>
+						<span class="mobile-hidden">{{value.toDate() | date:'dd/MM/yyyy'}}</span>
+					</ng-template>
+				</ngx-datatable-column>
+
+				<ngx-datatable-column name="Applicant Name" prop="applicant_info.username" [flexGrow]="1">
+					<ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+						<span class="mobile-hidden">{{column.name}}</span>
+					</ng-template>
+
+					<ng-template let-value="value" ngx-datatable-cell-template>
+						<span class="mobile-hidden">{{value}}</span>
+					</ng-template>
+				</ngx-datatable-column>
+
+				<ngx-datatable-column name="Booking Status" prop="booking_status" [flexGrow]="1">
+					<ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+						<span class="mobile-hidden">{{column.name}}</span>
+					</ng-template>
+
+					<ng-template let-value="value" ngx-datatable-cell-template>
+						<button mz-button [ngClass]="{'red': value == 'Cancelled' || value == 'Rejected', 'green': value == 'Open', 'amber': value == 'Pending Payment'}">
+							{{value}}
+						</button>
+					</ng-template>
+				</ngx-datatable-column>
+
+			</ngx-datatable>
+		</mz-card-content>
+	</mz-card>
+</div>

@@ -1,0 +1,101 @@
+<div class="content-container">
+	<!-- Search Card -->
+	<mz-card class="wow fadeInDown">
+		<mz-card-content>
+			<div class="row" style="margin: 0;">
+				<form [formGroup]="searchForm">
+					<div class="col m8 s12">
+						<mz-input-container>
+							<input mz-input [label]="'Search'" placeholder="User info to filter" formControlName="searchField">
+						</mz-input-container>
+					</div>
+					<div class="col m4 s12">
+						<mz-select-container>
+							<select multiple mz-select [label]="'User Type'" [placeholder]="'Select User Type'" formControlName="usertype">
+								<option *ngFor="let option of userRoles" [ngValue]="option">{{ option }}</option>
+							</select>
+						</mz-select-container>
+					</div>
+				</form>
+			</div>
+		</mz-card-content>
+	</mz-card>
+
+	<div class="section-seperator"></div>
+
+	<!-- Search Grid -->
+	<mz-card class="wow fadeIn">
+		<mz-card-title>
+			<div class="card-header-title">
+				<div> &nbsp;</div>
+				<div>Users</div>
+				<div>
+					<button mz-button class="btn-outline-white hoverable" [float]="true" [routerLink]="'/users/add'">
+						<i mz-icon-mdi [icon]="'plus'"></i>
+					</button>
+				</div>
+			</div>
+		</mz-card-title>
+		<mz-card-content>
+			<ngx-datatable #myTable class='material expandable wow fadeIn' [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+			 [rowHeight]="'auto'" [limit]="5" [rows]='rows' style="box-shadow:0 0 0 0;" [selectionType]="'single'" (select)="navigateToDetail($event)">
+
+				<!-- Row Detail Template -->
+				<!-- <ngx-datatable-row-detail [rowHeight]="100" #myDetailRow>
+					<ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+						<div style="padding-left:60px; font-size:14px">
+							<div>Model No :{{row.model}}</div>
+							<div>Registration No : {{row.regno}}</div>
+							<div>Chassis No : {{row.chassisno}}</div>
+							<div>
+								<button mz-button [ngClass]="{'red': row.status == 'Inactive', 'green': row.status == 'Active'}">
+									{{row.status}}
+								</button>
+							</div>
+						</div>
+					</ng-template>
+				</ngx-datatable-row-detail> -->
+
+				<!-- Column Templates -->
+				<ngx-datatable-column [width]="50" [resizeable]="false" [sortable]="false" [draggable]="false" [canAutoResize]="false">
+					<ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+						<a [class.datatable-icon-right]="!expanded" [class.datatable-icon-down]="expanded" title="Expand/Collapse Row" class="desktop-hidden">
+						</a>
+					</ng-template>
+				</ngx-datatable-column>
+
+				<ngx-datatable-column name="User" prop="photoURL" [flexGrow]="1" [minWidth]="200">
+					<ng-template let-value="value" ngx-datatable-cell-template>
+						<img [src]="value === '' ? 'assets/imgs/default.png' : value" class="circle" width="100em" height="100em">
+					</ng-template>
+				</ngx-datatable-column>
+
+				<ngx-datatable-column name="Username" prop="username" [flexGrow]="2" [minWidth]="200">
+					<ng-template let-value="value" ngx-datatable-cell-template>
+						{{value}}
+					</ng-template>
+				</ngx-datatable-column>
+
+				<ngx-datatable-column name="Email" prop="email" [flexGrow]="1">
+					<ng-template let-value="value" ngx-datatable-cell-template>
+						{{value}}
+					</ng-template>
+				</ngx-datatable-column>
+
+				<ngx-datatable-column name="User Type" prop="usertype" [flexGrow]="1">
+					<ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+						<span class="mobile-hidden">{{column.name}}</span>
+					</ng-template>
+
+					<ng-template let-value="value" ngx-datatable-cell-template>
+						<span class="mobile-hidden">
+							<button mz-button [ngClass]="{'green': value == 'Public', 'orange': value == 'Staff', 'red': value =='Admin'}">
+								{{value}}
+							</button>
+						</span>
+					</ng-template>
+				</ngx-datatable-column>
+			</ngx-datatable>
+		</mz-card-content>
+	</mz-card>
+</div>

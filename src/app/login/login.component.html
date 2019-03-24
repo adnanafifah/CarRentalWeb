@@ -1,0 +1,38 @@
+<div class="login-container">
+	<div class="container">
+		<div class="row">
+			<div class="col offset-m3 m6 s12">
+				<form [formGroup]="loginForm" (submit)="signIn()">
+
+					<mz-card [hoverable]="true" class="wow fadeInUp">
+						<mz-card-title>
+							<h4 class="center-align card-header z-depth-2">VIB'S</h4>
+						</mz-card-title>
+						<mz-card-content>
+							<div style="margin-top: 2em"></div>
+							<mz-input-container>
+								<i mz-icon-mdi mz-input-prefix [icon]="'email'">
+								</i>
+								<input mz-input formControlName="email" id="email" placeholder="Enter your email" type="email">
+							</mz-input-container>
+							<mz-input-container>
+								<i mz-icon-mdi mz-input-prefix [icon]="'lock'">
+								</i>
+								<input mz-input formControlName="password" [dataSuccess]="'Email is valid'" id="password" placeholder="Enter your Password"
+								 type="password">
+							</mz-input-container>
+						</mz-card-content>
+						<mz-card-action>
+							<div class="center-align">
+								<button mz-button class="cyan" type="submit">
+									Login
+								</button>
+							</div>
+						</mz-card-action>
+					</mz-card>
+				</form>
+
+			</div>
+		</div>
+	</div>
+</div>

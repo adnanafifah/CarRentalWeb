@@ -1,0 +1,100 @@
+<div class="content-container">
+	<form [formGroup]="payForm">
+		<mz-collapsible [mode]="'expandable'" [popout]="true">
+			<mz-collapsible-item [active]="true">
+				<mz-collapsible-item-header>
+					<i mz-icon-mdi [icon]="'credit-card'">
+					</i>
+					Payment Information
+				</mz-collapsible-item-header>
+				<mz-collapsible-item-body>
+					<div class="row">
+						<div class="col m6 s12">
+							<mz-input-container>
+								<input mz-input [label]="'Booking No'" id="bookingno" type="text" formControlName="bookingno">
+							</mz-input-container>
+						</div>
+						<div class="col m6 s12">
+							<mz-input-container>
+								<input mz-input [label]="'Payment No'" id="paymentno" type="text" formControlName="paymentno">
+							</mz-input-container>
+						</div>
+						<div class="col m6 s12">
+							<mz-input-container>
+								<input mz-input [label]="'Payment Date'" id="payment_datetime" type="text" formControlName="payment_datetime">
+							</mz-input-container>
+						</div>
+						<div class="col m6 s12">
+							<mz-input-container>
+								<input mz-input [label]="'Payment Type'" id="payment_type" type="text" formControlName="payment_type">
+							</mz-input-container>
+						</div>
+						<div class="col m6 s12">
+							<mz-input-container>
+								<input mz-input [label]="'Bank'" id="bank" type="text" formControlName="bank">
+							</mz-input-container>
+						</div>
+						<div class="col m6 s12">
+							<mz-input-container>
+								<input mz-input [label]="'Payment Amount'" id="payment_amount" type="text" formControlName="payment_amount">
+							</mz-input-container>
+						</div>
+						<div class="col m6 s12">
+							<div class="custom-container">
+								<p>
+									<button mz-button [ngClass]="{'green': payStatus === 'Open',  'amber': payStatus === 'Submitted', 'cyan': payStatus =='Verified'}">
+										{{payStatus}}
+									</button>
+								</p>
+								<label>Payment Status</label>
+							</div>
+						</div>
+					</div>
+				</mz-collapsible-item-body>
+			</mz-collapsible-item>
+			<mz-collapsible-item [active]="true">
+				<mz-collapsible-item-header>
+					<i mz-icon-mdi [icon]="'receipt'">
+					</i>
+					Payment Proof
+				</mz-collapsible-item-header>
+				<mz-collapsible-item-body>
+					<div class="row">
+						<div class="col s12 center-align">
+							<img [src]="proofImage" width="70%">
+						</div>
+					</div>
+				</mz-collapsible-item-body>
+			</mz-collapsible-item>
+		</mz-collapsible>
+	</form>
+
+	<div class="flex-between padding-1rem">
+		<button mz-button class="blue-grey" [routerLink]="'/payments'">
+			<i mz-icon-mdi [icon]="'arrow-left-bold'" [align]="'left'">
+			</i>
+			Back
+		</button>
+		<div class="flex-between">
+			<button mz-button class="cyan" (click)="confirmModal.open()" *ngIf="payStatus === 'Submitted'">
+				<i mz-icon-mdi [icon]="'checkbox-marked-circle-outline'" [align]="'left'">
+				</i>
+				Verify
+			</button>
+		</div>
+	</div>
+</div>
+
+
+<mz-modal #confirmModal>
+	<mz-modal-header>
+		<h4>Confirmation</h4>
+	</mz-modal-header>
+	<mz-modal-content>
+		Booking No {{payForm.get('bookingno').value}} will be confirmed. Confirm to verify this payment?
+	</mz-modal-content>
+	<mz-modal-footer>
+		<button mz-button [flat]="true" mz-modal-close>Cancel</button>
+		<button mz-button [flat]="true" mz-modal-close (click)="verifyPayment()">Confirm</button>
+	</mz-modal-footer>
+</mz-modal>

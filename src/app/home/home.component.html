@@ -1,0 +1,109 @@
+<div class="content-container">
+	<div class="row">
+		<div class="col m3 s12">
+			<mz-card [hoverable]="true" class="blue darken-2 white-text wow slideInLeft">
+				<mz-card-title>
+					<div>
+						Bookings
+						<i mz-icon-mdi [align]="'right'" [icon]="'book-open-page-variant'" class="white-text">
+						</i>
+					</div>
+				</mz-card-title>
+				<mz-card-content>
+					<div>
+						<mz-progress [backgroundClass]="'blue lighten-4'" [percentage]="(booking$ | async)?.PERCENTAGE" [progressClass]="'blue-grey darken-2'">
+						</mz-progress>
+					</div>
+					<p>{{(booking$ | async)?.CURRENT}} Bookings In Progress</p>
+				</mz-card-content>
+			</mz-card>
+		</div>
+		<div class="col m3 s12">
+			<mz-card [hoverable]="true" class="teal white-text wow slideInLeft">
+				<mz-card-title>
+					Payments
+					<i mz-icon-mdi [align]="'right'" [icon]="'credit-card'" class="white-text">
+					</i>
+				</mz-card-title>
+				<mz-card-content>
+					<div>
+						<mz-progress [backgroundClass]="'blue lighten-4'" [percentage]="(payment$ | async)?.PERCENTAGE" [progressClass]="'blue-grey darken-2'">
+						</mz-progress>
+					</div>
+					<p>{{(payment$ | async)?.CURRENT}} Payments In Progress</p>
+				</mz-card-content>
+			</mz-card>
+		</div>
+
+		<div class="col m3 s12">
+			<mz-card [hoverable]="true" class="amber darken-2 white-text wow slideInRight">
+				<mz-card-title>
+					Vehicles
+					<i mz-icon-mdi [align]="'right'" [icon]="'car'" class="white-text">
+					</i>
+				</mz-card-title>
+				<mz-card-content>
+					<div>
+						<mz-progress [backgroundClass]="'blue lighten-4'" [percentage]="(vehicle$ | async)?.PERCENTAGE" [progressClass]="'blue-grey darken-2'">
+						</mz-progress>
+					</div>
+					<p>{{(vehicle$ | async)?.CURRENT}} Vehicles Available</p>
+				</mz-card-content>
+			</mz-card>
+		</div>
+
+		<div class="col m3 s12">
+			<mz-card [hoverable]="true" class="red white-text wow slideInRight">
+				<mz-card-title>
+					Users
+					<i mz-icon-mdi [align]="'right'" [icon]="'account-multiple'" class="white-text">
+					</i>
+				</mz-card-title>
+				<mz-card-content>
+					<div>
+						<mz-progress [backgroundClass]="'blue lighten-4'" [percentage]="(user$ | async)?.PERCENTAGE" [progressClass]="'blue-grey darken-2'">
+						</mz-progress>
+					</div>
+					<p>{{(user$ | async)?.CURRENT}} Users Registered</p>
+				</mz-card-content>
+			</mz-card>
+		</div>
+	</div>
+	<mz-card [hoverable]="true" class="wow slideInUp">
+		<mz-card-title>
+			<div class="row">
+				<div class="col m4 s12 left-align">
+					<button mz-button mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" class="cyan">
+						Previous
+					</button>
+					<button mz-button mwlCalendarToday [(viewDate)]="viewDate" class="cyan darken-4">
+						Today
+					</button>
+					<button mz-button mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" class="cyan">
+						Next
+					</button>
+				</div>
+				<div class="col m4 s12 center-align">
+					<h4>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h4>
+				</div>
+				<div class="col m4 s12 right-align">
+					<button mz-button (click)="view = 'month'" class="cyan" [ngClass]="{'darken-4': view == 'month'}">
+						Month
+					</button>
+					<button mz-button (click)="view = 'week'" class="cyan" [ngClass]="{'darken-4': view == 'week'}">
+						Week
+					</button>
+				</div>
+			</div>
+		</mz-card-title>
+		<mz-card-content>
+			<div [ngSwitch]="view">
+				<mwl-calendar-month-view [viewDate]="viewDate" [events]="events" *ngSwitchCase="'month'">
+				</mwl-calendar-month-view>
+				<mwl-calendar-week-view [viewDate]="viewDate" [events]="events" *ngSwitchCase="'week'">
+				</mwl-calendar-week-view>
+			</div>
+		</mz-card-content>
+	</mz-card>
+
+</div>

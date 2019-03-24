@@ -1,0 +1,131 @@
+<div class="content-container">
+	<div class="row">
+		<div class="col m4 s12">
+			<mz-card class="wow fadeInUp">
+				<mz-card-content>
+					<div class="card-avatar">
+						<img [src]="imageUrl" class="z-depth-1">
+					</div>
+					<div class="row">
+						<div class="col s12">
+							<div class="file-field input-field">
+								<div class="btn cyan">
+									<span>
+										<i mz-icon-mdi [icon]="'camera'">
+										</i>
+									</span>
+									<input type="file" (change)="readUrl($event)">
+								</div>
+								<div class="file-path-wrapper">
+									<input class="file-path validate" type="text" placeholder="Add Profile Picture">
+								</div>
+							</div>
+						</div>
+					</div>
+				</mz-card-content>
+			</mz-card>
+		</div>
+		<div class="col m8 s12">
+			<mz-card class="wow fadeInRight">
+				<mz-card-title>
+					<div class="card-header-title">
+						<div> &nbsp;</div>
+						<div>User Profile</div>
+						<div> &nbsp;</div>
+					</div>
+				</mz-card-title>
+				<mz-card-content>
+					<form [formGroup]="userForm">
+						<div class="row">
+							<div class="col s12">
+								<mz-input-container>
+									<input mz-input [validate]="true" [label]="'Full Name'" id="username" formControlName="username" placeholder="User Full Name"
+									 type="text" [dataError]="getErrorMsg('username')" [ngClass]="{invalid: username.invalid && (username.touched || submitted)}">
+								</mz-input-container>
+							</div>
+
+							<div class="col m6 s12">
+								<mz-input-container>
+									<input mz-input [validate]="true" [label]="'Email'" id="email" formControlName="email" placeholder="User Email" type="text"
+									 [dataError]="getErrorMsg('email')" [ngClass]="{invalid: email.invalid && (email.touched || submitted)}">
+								</mz-input-container>
+							</div>
+							<div class="col m6 s12">
+								<mz-input-container>
+									<input mz-input [validate]="true" [label]="'Contact No'" id="phoneno" formControlName="phoneno" placeholder="User Contact No"
+									 type="text" [dataError]="getErrorMsg('phoneno')" [ngClass]="{invalid: phoneno.invalid && (phoneno.touched || submitted)}">
+								</mz-input-container>
+							</div>
+							<div class="col m6 s12">
+								<mz-input-container>
+									<input mz-input [label]="'IC No'" id="icno" formControlName="icno" placeholder="User Identification No" type="text" [dataError]="getErrorMsg('icno')"
+									 [ngClass]="{invalid: icno.invalid && (icno.touched || submitted)}">
+								</mz-input-container>
+							</div>
+							<div class="col m6 s12">
+								<mz-select-container>
+									<select mz-select id="options-select" [label]="'User Role'" formControlName="usertype" [placeholder]="'Select User Type'">
+										<option value="Admin">Admin</option>
+										<option value="Staff">Staff</option>
+										<option value="Public">Public</option>
+									</select>
+								</mz-select-container>
+							</div>
+						</div>
+
+						<mz-card-action>
+							<div class="row center-align">
+								<div class="col m6 s12">
+									<button mz-button class="amber wow fadeInLeft" (click)="confirmModal.open()" data-wow-delay="0.5s">
+										Change Password
+									</button>
+								</div>
+								<div class="col m6 s12">
+									<button mz-button class="cyan wow fadeInRight" (click)="submitForm()" data-wow-delay="0.5s">
+										Update Profile
+									</button>
+								</div>
+							</div>
+						</mz-card-action>
+					</form>
+				</mz-card-content>
+			</mz-card>
+		</div>
+	</div>
+</div>
+
+
+
+<mz-modal #confirmModal>
+	<mz-modal-header>
+		<h4>Change Password</h4>
+	</mz-modal-header>
+	<mz-modal-content>
+		<form [formGroup]="passForm">
+			<div class="row">
+				<div class="col s12">
+					<mz-input-container>
+						<input mz-input [validate]="true" [label]="'Existing Password'" id="currentPassword" formControlName="currentPassword" placeholder="Enter existing password"
+						 type="password" [dataError]="getPassErrorMsg('currentPassword')" [ngClass]="{invalid: currentPassword.invalid && (currentPassword.touched || passSubmitted)}">
+					</mz-input-container>
+				</div>
+				<div class="col s12">
+					<mz-input-container>
+						<input mz-input [validate]="true" [label]="'New Password'" id="newPassword" formControlName="newPassword" placeholder="Enter existing password"
+						 type="password" [dataError]="getPassErrorMsg('newPassword')" [ngClass]="{invalid: newPassword.invalid && (newPassword.touched || passSubmitted)}">
+					</mz-input-container>
+				</div>
+				<div class="col s12">
+					<mz-input-container>
+						<input mz-input [validate]="true" [label]="'Confirm Password'" id="confirmPassword" formControlName="confirmPassword" placeholder="Enter existing password"
+						 type="password" [dataError]="getPassErrorMsg('confirmPassword')" [ngClass]="{invalid: (confirmPassword.invalid || passForm.invalid) && (confirmPassword.touched || passSubmitted)}">
+					</mz-input-container>
+				</div>
+			</div>
+		</form>
+	</mz-modal-content>
+	<mz-modal-footer>
+		<button mz-button [flat]="true" mz-modal-close>Cancel</button>
+		<button mz-button [flat]="true" (click)="updatePassword()">Update Password</button>
+	</mz-modal-footer>
+</mz-modal>

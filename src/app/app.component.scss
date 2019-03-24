@@ -1,0 +1,33 @@
+.uitm-logo {
+    text-align: center;
+    padding: 1em;
+    img {
+        max-width: 150px;
+    }
+}
+
+::ng-deep .side-nav {
+    min-height: 100%;
+    background: linear-gradient(0deg, rgba(38, 50, 56, 0.8), rgba(38, 50, 56, 0.8)), url(/assets/imgs/sidenav.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+
+.sidenav-link {
+    color: white;
+    font-size: 15px;
+    i {
+        color: white;
+    }
+}
+
+.maincontent {
+    padding-left: 300px;
+    height: 100%;
+}
+
+@media only screen and (max-width: 992px) {
+    .maincontent {
+        padding-left: 0;
+    }
+}

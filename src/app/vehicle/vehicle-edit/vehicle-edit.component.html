@@ -1,0 +1,160 @@
+<div class="content-container">
+	<div class="row">
+		<div class="col m4 s12">
+			<mz-card class="wow fadeInUp">
+				<mz-card-content>
+					<div class="card-avatar">
+						<img [src]="imageUrl" class="z-depth-1">
+					</div>
+					<div class="row">
+						<div class="col s12">
+							<div class="card-content">
+								<div class="file-field input-field">
+									<div class="btn cyan">
+										<span>
+											<i mz-icon-mdi [icon]="'camera'">
+											</i>
+										</span>
+										<input type="file" (change)="readUrl($event)">
+									</div>
+									<div class="file-path-wrapper">
+										<input class="file-path validate" type="text" placeholder="Add Profile Picture">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</mz-card-content>
+			</mz-card>
+		</div>
+		<div class="col m8 s12">
+			<mz-card class="wow fadeInRight">
+				<mz-card-title>
+					<div class="card-header-title">
+						<div> &nbsp;</div>
+						<div>Vehicle Information</div>
+						<div> &nbsp;</div>
+					</div>
+				</mz-card-title>
+				<mz-card-content>
+					<form [formGroup]="vehicleForm">
+						<div class="row">
+							<div class="col s12">
+								<mz-input-container>
+									<input mz-input [validate]="true" [label]="'Vehicle Model'" id="model" formControlName="model" placeholder="Vehicle Model Name"
+									 type="text" [dataError]="getErrorMsg('model')" [ngClass]="{invalid: model.invalid && (model.touched || submitted)}">
+								</mz-input-container>
+							</div>
+							<div class="col m6 s12">
+								<mz-input-container>
+									<input mz-datepicker [label]="'Registration Date'" id="regdate" formControlName="regdate" placeholder="Registration Date"
+									 type="text" [options]="{format: 'dd/mm/yyyy'}">
+								</mz-input-container>
+							</div>
+							<div class="col m6 s12">
+								<mz-input-container>
+									<input mz-input [validate]="true" [label]="'Registration No'" id="regno" formControlName="regno" placeholder="Enter Vehicle Reg No"
+									 type="text" [dataError]="getErrorMsg('regno')" [ngClass]="{invalid: regno.invalid && (regno.touched || submitted)}">
+								</mz-input-container>
+							</div>
+							<div class="col m6 s12">
+								<mz-input-container>
+									<input mz-input [validate]="true" [label]="'Chassis No'" id="chassisno" formControlName="chassisno" placeholder="Enter Chassis No"
+									 type="text" [dataError]="getErrorMsg('chassisno')" [ngClass]="{invalid: chassisno.invalid && (chassisno.touched || submitted)}">
+								</mz-input-container>
+							</div>
+
+							<div class="col m6 s12">
+								<mz-input-container>
+									<input mz-input [validate]="true" [label]="'Price Per Day (RM)'" id="price" formControlName="price" placeholder="Enter Price Per Day"
+									 type="number" [dataError]="getErrorMsg('price')" [ngClass]="{invalid: price.invalid && (price.touched || submitted)}">
+								</mz-input-container>
+							</div>
+
+							<div class="col m6 s12">
+								<mz-select-container>
+									<select mz-select id="options-select" [label]="'Status'" formControlName="status" [placeholder]="'Select Car Status'">
+										<option value="Active">Active</option>
+										<option value="Inactive">Inactive</option>
+									</select>
+								</mz-select-container>
+							</div>
+
+							<div class="col m6 s12">
+								<mz-select-container>
+									<select mz-select id="options-select" [label]="'Car Category'" formControlName="category" [placeholder]="'Select Car Category'">
+										<option *ngFor="let cat of vehCategory" [ngValue]="cat">{{cat}}</option>
+									</select>
+								</mz-select-container>
+							</div>
+
+							<div class="col m6 s12">
+								<mz-select-container>
+									<i mz-icon-mdi mz-input-prefix [icon]="'car'">
+									</i>
+									<select mz-select id="options-select" [label]="'Car Type'" formControlName="cartype" [placeholder]="'Select Car Type'">
+										<option value="Manual">Manual</option>
+										<option value="Auto">Auto</option>
+									</select>
+								</mz-select-container>
+							</div>
+
+							<div class="col m6 s12">
+								<mz-select-container>
+									<i mz-icon-mdi mz-input-prefix [icon]="'snowflake'">
+									</i>
+									<select mz-select id="options-select" [label]="'Air-Conditioned'" formControlName="aircondition" [placeholder]="'Select Air-Condition Status'">
+										<option value="true">Yes</option>
+										<option value="false">No</option>
+									</select>
+								</mz-select-container>
+							</div>
+
+							<div class="col m4 s12">
+								<mz-input-container>
+									<i mz-icon-mdi mz-input-prefix [icon]="'account-multiple'">
+									</i>
+									<input mz-input [validate]="true" [label]="'No Of Passengers'" id="passengers" formControlName="passengers" placeholder="No Of Passengers Allowed"
+									 type="number" [dataError]="getErrorMsg('passengers')" [ngClass]="{invalid: passengers.invalid && (passengers.touched || submitted)}">
+								</mz-input-container>
+							</div>
+
+							<div class="col m4 s12">
+								<mz-input-container>
+									<i mz-icon-mdi mz-input-prefix [icon]="'door'">
+									</i>
+									<input mz-input [validate]="true" [label]="'No Of Doors'" id="doors" formControlName="doors" placeholder="No Of Doors" type="number"
+									 [dataError]="getErrorMsg('doors')" [ngClass]="{invalid: doors.invalid && (doors.touched || submitted)}">
+								</mz-input-container>
+							</div>
+
+							<div class="col m4 s12">
+								<mz-input-container>
+									<i mz-icon-mdi mz-input-prefix [icon]="'briefcase'">
+									</i>
+									<input mz-input [validate]="true" [label]="'No Of Bags'" id="bags" formControlName="bags" placeholder="No Of Bags Allowed"
+									 type="number" [dataError]="getErrorMsg('bags')" [ngClass]="{invalid: bags.invalid && (bags.touched || submitted)}">
+								</mz-input-container>
+							</div>
+						</div>
+
+						<mz-card-action>
+							<div class="row center-align">
+								<div class="col m6 s12">
+									<button mz-button class="blue-grey" [routerLink]="'/vehicles'">
+										Back
+									</button>
+								</div>
+								<div class="col m6 s12">
+									<button mz-button class="cyan" (click)="submitForm()">
+										Submit
+									</button>
+								</div>
+							</div>
+						</mz-card-action>
+					</form>
+				</mz-card-content>
+			</mz-card>
+		</div>
+	</div>
+</div>
